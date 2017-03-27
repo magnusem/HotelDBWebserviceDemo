@@ -16,6 +16,12 @@ namespace HotelDBWebserviceDemo.Controllers
     public class BookingsController : ApiController
     {
         private HotelContext db = new HotelContext();
+        [Route("api/Booking/{GuestNo:int}/Guests")]
+        [HttpGet]
+        public IQueryable<Booking> GetBookingsByGuestID(int GuestNo)
+        {
+            return db.Booking.Where(x => x.Guest_No.Equals(GuestNo));
+        }
 
         // GET: api/Bookings
         public IQueryable<Booking> GetBooking()

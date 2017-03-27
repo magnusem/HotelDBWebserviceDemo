@@ -36,6 +36,19 @@ namespace HotelDBWebserviceDemo.Controllers
             return Ok(room);
         }
 
+        [Route("api/rooms/{room_id:int}/{hotel_id:int}")]
+        [HttpGet]
+        [ResponseType(typeof(Room))]
+        public async Task<IHttpActionResult> GetRoomByHotel(int room_id, int hotel_id)
+        {
+            Room room = db.Room.Where(x => x.Hotel_No.Equals(hotel_id) && x.Room_No.Equals(room_id)).FirstOrDefault();
+                if (room == null)
+            {
+                return NotFound();
+            }
+            return Ok(room);
+        }
+
         // PUT: api/Rooms/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutRoom(int id, Room room)
